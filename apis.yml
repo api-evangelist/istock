@@ -3,21 +3,46 @@ url: https://raw.githubusercontent.com/api-evangelist/istock/refs/heads/main/api
 name: iStock
 x-type: company
 description: >-
-  iStock (a Getty Images company) is a royalty-free stock photography, illustration, video, and audio platform with subscription pricing.
+  iStock is Getty Images' royalty-free stock media brand for affordable, subscription-based image,
+  video, illustration, and audio licensing. iStock shares Getty's underlying API platform; partner API
+  access is gated and tied to a commercial licensing agreement.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Stock Media
   - Images
+  - Video
+  - Illustrations
   - Royalty-Free
   - Getty
-  - Subscription
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: istock:platform
+    name: iStock API (Getty Platform)
+    description: >-
+      Partner API access for iStock content runs on Getty's API platform. Search, asset detail, and
+      download endpoints are namespaced to iStock content. Authentication uses an api-key header plus
+      OAuth 2.0 client credentials. Direct iStock-only API self-service is not offered; access is granted
+      to enterprise partners through Getty's developer program.
+    humanURL: https://www.istockphoto.com/affiliates
+    baseURL: https://api.gettyimages.com/v3
+    tags:
+      - Images
+      - Video
+      - Search
+    properties:
+      - type: Documentation
+        url: https://developer.gettyimages.com/docs/
+      - type: OpenAPI
+        url: https://api.gettyimages.com/swagger
+      - type: Affiliates
+        url: https://www.istockphoto.com/affiliates
 common:
   - type: Website
     url: https://www.istockphoto.com/
+  - type: DeveloperPortal
+    url: https://developer.gettyimages.com/
   - type: Plans
     url: plans/istock-plans-pricing.yml
   - type: RateLimits

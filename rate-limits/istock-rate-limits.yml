@@ -5,31 +5,37 @@ provider: iStock
 providerId: istock
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - Stock Media
 - Images
+- Video
+- Illustrations
 - Royalty-Free
 - Getty
-- Subscription
 - Rate Limiting
 - Quotas
 - Throttling
-description: Placeholder rate-limit artifact for iStock. Replace with real limits once researched.
-notes: Initial scaffold — limits have not yet been reconciled.
+description: >-
+  iStock partner API requests run on Getty's platform and inherit Getty's per-API-key QPS limits.
+  Specific thresholds are contract-defined; HTTP 429 indicates 'Account Over Queries Per Second
+  Limit.'
+notes: Inherits Getty's per-key QPS limits; not separately documented for iStock.
 sources:
-- https://www.istockphoto.com/
+- https://developer.gettyimages.com/docs/
 responseCodes:
   throttled: 429
 limits:
-- name: Default
+- name: Per API key
   scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  metric: requests-per-second
+  limit: contract-defined
+  notes: Returns 'Account Over Queries Per Second Limit' on overage.
 policies:
 - name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  description: On 429, apply exponential backoff with jitter.
+- name: Caching
+  description: Cache search/metadata responses to minimize repeat traffic.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
