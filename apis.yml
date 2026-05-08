@@ -1,0 +1,29 @@
+aid: istock
+url: https://raw.githubusercontent.com/api-evangelist/istock/refs/heads/main/apis.yml
+name: iStock
+x-type: company
+description: >-
+  iStock (a Getty Images company) is a royalty-free stock photography, illustration, video, and audio platform with subscription pricing.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Stock Media
+  - Images
+  - Royalty-Free
+  - Getty
+  - Subscription
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://www.istockphoto.com/
+  - type: Plans
+    url: plans/istock-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/istock-rate-limits.yml
+  - type: FinOps
+    url: finops/istock-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
