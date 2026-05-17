@@ -1,7 +1,7 @@
 aid: istock
 url: https://raw.githubusercontent.com/api-evangelist/istock/refs/heads/main/apis.yml
 name: iStock
-x-type: company
+kind: company
 description: >-
   iStock is Getty Images' royalty-free stock media brand for affordable, subscription-based image,
   video, illustration, and audio licensing. iStock shares Getty's underlying API platform; partner API
