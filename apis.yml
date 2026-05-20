@@ -39,6 +39,8 @@ apis:
       - type: Affiliates
         url: https://www.istockphoto.com/affiliates
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/istockphoto
   - type: Website
     url: https://www.istockphoto.com/
   - type: DeveloperPortal
