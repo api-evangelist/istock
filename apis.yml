@@ -39,6 +39,12 @@ apis:
       - type: Affiliates
         url: https://www.istockphoto.com/affiliates
 common:
+  - type: VulnerabilityDisclosure
+    url: security/istock-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/istock-domain-security.yml
+  - type: Authentication
+    url: authentication/istock-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/istockphoto
   - type: Website
