@@ -39,6 +39,8 @@ apis:
       - type: Affiliates
         url: https://www.istockphoto.com/affiliates
 common:
+  - type: AgenticAccess
+    url: agentic-access/istock-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/istock-vulnerability-disclosure.yml
   - type: DomainSecurity
