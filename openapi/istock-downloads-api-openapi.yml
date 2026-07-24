@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: iStock API (Getty Images Platform) Countries Downloads API
+  description: 'iStock content is served from Getty Images'' shared API platform.
+
+    Partner integrations authenticate with an API key plus OAuth 2.0 client
+
+    credentials and search/retrieve/download iStock-namespaced creative and
+
+    editorial images and videos. Self-service API access for iStock-only
+
+    accounts is not generally offered; access is granted through Getty''s
+
+    developer program.
+
+    '
+  version: '3.0'
+  contact:
+    name: Getty Images Developer Portal
+    url: https://developer.gettyimages.com
+servers:
+- url: https://api.gettyimages.com/v3
+  description: Getty Images / iStock production API
+security:
+- apiKey: []
+  bearerAuth: []
+tags:
+- name: Downloads
+  description: License and download assets
+paths:
+  /downloads/images/{id}:
+    post:
+      tags:
+      - Downloads
+      summary: License and download an image
+      operationId: downloadImage
+      parameters:
+      - $ref: '#/components/parameters/AssetId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_type:
+                  type: string
+                size:
+                  type: string
+                product_id:
+                  type: integer
+                project_code:
+                  type: string
+      responses:
+        '200':
+          description: Download response with signed URI
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadResponse'
+  /downloads/videos/{id}:
+    post:
+      tags:
+      - Downloads
+      summary: License and download a video
+      operationId: downloadVideo
+      parameters:
+      - $ref: '#/components/parameters/AssetId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                size:
+                  type: string
+                product_id:
+                  type: integer
+                project_code:
+                  type: string
+      responses:
+        '200':
+          description: Download response with signed URI
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadResponse'
+components:
+  schemas:
+    DownloadResponse:
+      type: object
+      properties:
+        uri:
+          type: string
+          format: uri
+          description: Signed download URI (expires in seconds).
+        download_credits:
+          type: integer
+        downloads_remaining:
+          type: integer
+  parameters:
+    AssetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: api-key
+      description: API key issued through the Getty Images developer program.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 access token obtained via /oauth2/token.

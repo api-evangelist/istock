@@ -1,0 +1,230 @@
+openapi: 3.1.0
+info:
+  title: iStock API (Getty Images Platform) Countries Search API
+  description: 'iStock content is served from Getty Images'' shared API platform.
+
+    Partner integrations authenticate with an API key plus OAuth 2.0 client
+
+    credentials and search/retrieve/download iStock-namespaced creative and
+
+    editorial images and videos. Self-service API access for iStock-only
+
+    accounts is not generally offered; access is granted through Getty''s
+
+    developer program.
+
+    '
+  version: '3.0'
+  contact:
+    name: Getty Images Developer Portal
+    url: https://developer.gettyimages.com
+servers:
+- url: https://api.gettyimages.com/v3
+  description: Getty Images / iStock production API
+security:
+- apiKey: []
+  bearerAuth: []
+tags:
+- name: Search
+  description: Search creative and editorial assets
+paths:
+  /search/images/creative:
+    get:
+      tags:
+      - Search
+      summary: Search creative images
+      operationId: searchCreativeImages
+      parameters:
+      - $ref: '#/components/parameters/Phrase'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: sort_order
+        in: query
+        schema:
+          type: string
+          enum:
+          - best_match
+          - newest
+          - most_popular
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageSearchResult'
+  /search/images/editorial:
+    get:
+      tags:
+      - Search
+      summary: Search editorial images
+      operationId: searchEditorialImages
+      parameters:
+      - $ref: '#/components/parameters/Phrase'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageSearchResult'
+  /search/videos/creative:
+    get:
+      tags:
+      - Search
+      summary: Search creative videos
+      operationId: searchCreativeVideos
+      parameters:
+      - $ref: '#/components/parameters/Phrase'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoSearchResult'
+  /search/videos/editorial:
+    get:
+      tags:
+      - Search
+      summary: Search editorial videos
+      operationId: searchEditorialVideos
+      parameters:
+      - $ref: '#/components/parameters/Phrase'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoSearchResult'
+components:
+  schemas:
+    ImageSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        caption:
+          type: string
+        asset_family:
+          type: string
+          enum:
+          - creative
+          - editorial
+        collection_code:
+          type: string
+        collection_name:
+          type: string
+        license_model:
+          type: string
+        max_dimensions:
+          type: object
+          properties:
+            width:
+              type: integer
+            height:
+              type: integer
+        display_sizes:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              uri:
+                type: string
+                format: uri
+        download_sizes:
+          type: array
+          items:
+            type: object
+        keywords:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+              type:
+                type: string
+    Video:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        caption:
+          type: string
+        clip_length:
+          type: string
+        aspect_ratio:
+          type: string
+        download_sizes:
+          type: array
+          items:
+            type: object
+        thumbnails:
+          type: array
+          items:
+            type: object
+    VideoSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Video'
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    Phrase:
+      name: phrase
+      in: query
+      required: true
+      schema:
+        type: string
+    PageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: api-key
+      description: API key issued through the Getty Images developer program.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 access token obtained via /oauth2/token.
