@@ -6,7 +6,20 @@ description: >-
   iStock is Getty Images' royalty-free stock media brand for affordable, subscription-based image,
   video, illustration, and audio licensing. iStock shares Getty's underlying API platform; partner API
   access is gated and tied to a commercial licensing agreement.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/istock.png
 tags:
   - Stock Media
   - Images
@@ -18,26 +31,90 @@ created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
 apis:
-  - aid: istock:platform
-    name: iStock API (Getty Platform)
-    description: >-
-      Partner API access for iStock content runs on Getty's API platform. Search, asset detail, and
-      download endpoints are namespaced to iStock content. Authentication uses an api-key header plus
-      OAuth 2.0 client credentials. Direct iStock-only API self-service is not offered; access is granted
-      to enterprise partners through Getty's developer program.
-    humanURL: https://www.istockphoto.com/affiliates
-    baseURL: https://api.gettyimages.com/v3
-    tags:
-      - Images
-      - Video
-      - Search
-    properties:
-      - type: Documentation
-        url: https://developer.gettyimages.com/docs/
-      - type: OpenAPI
-        url: https://api.gettyimages.com/swagger
-      - type: Affiliates
-        url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-countries-api
+  name: iStock Countries API
+  description: Reference data
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Countries
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-countries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-downloads-api
+  name: iStock Downloads API
+  description: License and download assets
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Downloads
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-downloads-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-images-api
+  name: iStock Images API
+  description: Image metadata retrieval
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-images-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-oauth-api
+  name: iStock OAuth API
+  description: OAuth 2.0 token acquisition
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-search-api
+  name: iStock Search API
+  description: Search creative and editorial assets
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-search-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-videos-api
+  name: iStock Videos API
+  description: Video metadata retrieval
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-videos-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
 common:
   - type: AgenticAccess
     url: agentic-access/istock-agentic-access.yml
