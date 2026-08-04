@@ -1,0 +1,24 @@
+{
+  "provider": "istock",
+  "sources": [
+    "istock-countries-api-openapi.yml",
+    "istock-downloads-api-openapi.yml",
+    "istock-images-api-openapi.yml",
+    "istock-oauth-api-openapi.yml",
+    "istock-search-api-openapi.yml",
+    "istock-videos-api-openapi.yml"
+  ],
+  "outputs": [
+    "istock-countries-api-openapi.yml",
+    "istock-downloads-api-openapi.yml",
+    "istock-images-api-openapi.yml",
+    "istock-oauth-api-openapi.yml",
+    "istock-search-api-openapi.yml",
+    "istock-videos-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
