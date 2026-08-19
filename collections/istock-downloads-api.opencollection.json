@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "iStock API (Getty Images Platform) Countries Downloads API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api-key",
+      "value": "{{api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Downloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "License and download an image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gettyimages.com/v3/downloads/images/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "License and download an image"
+        },
+        {
+          "info": {
+            "name": "License and download a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gettyimages.com/v3/downloads/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "License and download a video"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

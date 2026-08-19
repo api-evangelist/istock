@@ -1,0 +1,229 @@
+{
+  "item": [
+    {
+      "id": "973bae3e-6e38-4492-b55a-c80ef95a50b9",
+      "name": "Videos",
+      "description": {
+        "content": "Video metadata retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f7c65fc-0f92-49e0-bdca-7f6f70604f42",
+          "name": "Get metadata for multiple videos",
+          "request": {
+            "name": "Get metadata for multiple videos",
+            "description": {},
+            "url": {
+              "path": [
+                "videos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>,<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65b29d4f-045d-4865-9841-0db1b15370df",
+              "name": "Video metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"videos\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"clip_length\": \"string\",\n      \"aspect_ratio\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"clip_length\": \"string\",\n      \"aspect_ratio\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1004aed6-c8bb-4505-b631-eb74f77b63bd",
+          "name": "Get video metadata",
+          "request": {
+            "name": "Get video metadata",
+            "description": {},
+            "url": {
+              "path": [
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7368d6fb-31fc-44e7-9ffc-86fd79d51649",
+              "name": "Video metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"caption\": \"string\",\n  \"clip_length\": \"string\",\n  \"aspect_ratio\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gettyimages.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "875749de-03a6-4af4-b293-5f98bfb46e77",
+    "name": "iStock API (Getty Images Platform) Countries Videos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "iStock content is served from Getty Images' shared API platform.\nPartner integrations authenticate with an API key plus OAuth 2.0 client\ncredentials and search/retrieve/download iStock-namespaced creative and\neditorial images and videos. Self-service API access for iStock-only\naccounts is not generally offered; access is granted through Getty's\ndeveloper program.\n\n\nContact Support:\n Name: Getty Images Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

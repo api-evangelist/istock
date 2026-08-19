@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "iStock API (Getty Images Platform) Countries Videos API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api-key",
+      "value": "{{api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata for multiple videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gettyimages.com/v3/videos",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metadata for multiple videos"
+        },
+        {
+          "info": {
+            "name": "Get video metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gettyimages.com/v3/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get video metadata"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

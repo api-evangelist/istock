@@ -1,0 +1,281 @@
+{
+  "item": [
+    {
+      "id": "e1b7d447-fcf1-4d7a-b914-35f4b43e5122",
+      "name": "Downloads",
+      "description": {
+        "content": "License and download assets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c7c7ae0a-68a5-4e23-ac03-f6b35ae8c7e6",
+          "name": "License and download an image",
+          "request": {
+            "name": "License and download an image",
+            "description": {},
+            "url": {
+              "path": [
+                "downloads",
+                "images",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_type\": \"<string>\",\n  \"size\": \"<string>\",\n  \"product_id\": \"<integer>\",\n  \"project_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e40e1a4-dcc4-4d1d-8288-006ba24f0803",
+              "name": "Download response with signed URI",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "downloads",
+                    "images",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_type\": \"<string>\",\n  \"size\": \"<string>\",\n  \"product_id\": \"<integer>\",\n  \"project_code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uri\": \"https://kQCMLcmNnxmhcBIFzTBIaiwvN.fkaihdyk+\",\n  \"download_credits\": 5448,\n  \"downloads_remaining\": 7022\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dce71e7d-b62a-4e52-aa9a-e4b393b0a83c",
+          "name": "License and download a video",
+          "request": {
+            "name": "License and download a video",
+            "description": {},
+            "url": {
+              "path": [
+                "downloads",
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"size\": \"<string>\",\n  \"product_id\": \"<integer>\",\n  \"project_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ebe8c3ad-8a99-4d70-933c-33f2788764a1",
+              "name": "Download response with signed URI",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "downloads",
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<string>\",\n  \"product_id\": \"<integer>\",\n  \"project_code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uri\": \"https://kQCMLcmNnxmhcBIFzTBIaiwvN.fkaihdyk+\",\n  \"download_credits\": 5448,\n  \"downloads_remaining\": 7022\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gettyimages.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e6989eff-44a8-46ec-a878-f994dae2adf0",
+    "name": "iStock API (Getty Images Platform) Countries Downloads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "iStock content is served from Getty Images' shared API platform.\nPartner integrations authenticate with an API key plus OAuth 2.0 client\ncredentials and search/retrieve/download iStock-namespaced creative and\neditorial images and videos. Self-service API access for iStock-only\naccounts is not generally offered; access is granted through Getty's\ndeveloper program.\n\n\nContact Support:\n Name: Getty Images Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

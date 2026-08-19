@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "iStock API (Getty Platform) Countries Images API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api-key",
+      "value": "{{api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata for multiple images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gettyimages.com/v3/images",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metadata for multiple images"
+        },
+        {
+          "info": {
+            "name": "Get image metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gettyimages.com/v3/images/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get image metadata"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

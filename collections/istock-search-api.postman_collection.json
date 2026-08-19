@@ -1,0 +1,494 @@
+{
+  "item": [
+    {
+      "id": "d63bac59-bec2-4e12-974b-3c3052e65648",
+      "name": "Search",
+      "description": {
+        "content": "Search creative and editorial assets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e0a5766-0c64-4a82-b9f2-81a026859efc",
+          "name": "Search creative images",
+          "request": {
+            "name": "Search creative images",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "images",
+                "creative"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "phrase",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "30"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "799c7490-d9ac-4110-a410-2850f1802763",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "images",
+                    "creative"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phrase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "30"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result_count\": 3716,\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"asset_family\": \"creative\",\n      \"collection_code\": \"string\",\n      \"collection_name\": \"string\",\n      \"license_model\": \"string\",\n      \"max_dimensions\": {\n        \"width\": 2997,\n        \"height\": 1085\n      },\n      \"display_sizes\": [\n        {\n          \"name\": \"string\",\n          \"uri\": \"https://uyCksanKwLxpxdPBfgZit.iwYiBZf3nFd.0bcsbx-g9W.\"\n        },\n        {\n          \"name\": \"string\",\n          \"uri\": \"http://LSeiWAPQvE.jbUoX41UhWTqZ6Y0nabjOfRjTkrhK8OPTIHBl.iylmVNcaHRie2oO-\"\n        }\n      ],\n      \"keywords\": [\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"asset_family\": \"creative\",\n      \"collection_code\": \"string\",\n      \"collection_name\": \"string\",\n      \"license_model\": \"string\",\n      \"max_dimensions\": {\n        \"width\": 2747,\n        \"height\": 3107\n      },\n      \"display_sizes\": [\n        {\n          \"name\": \"string\",\n          \"uri\": \"http://yBbLiwgPOIOZlzMvhqlqHlnks.ycXWVY8jnNjskYqZSKxQqCIkDvsvmMgm,W8fyLGvVeWRA.Ha,79CRl-GAUB2n1VhvsnL\"\n        },\n        {\n          \"name\": \"string\",\n          \"uri\": \"https://aNYpdNIEViZMIdW.qaCZ.y\"\n        }\n      ],\n      \"keywords\": [\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b499c845-a688-4959-b208-974959472993",
+          "name": "Search editorial images",
+          "request": {
+            "name": "Search editorial images",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "images",
+                "editorial"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "phrase",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "30"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "059d2a83-2323-42f3-b245-b8bdf89a60f6",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "images",
+                    "editorial"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phrase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result_count\": 3716,\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"asset_family\": \"creative\",\n      \"collection_code\": \"string\",\n      \"collection_name\": \"string\",\n      \"license_model\": \"string\",\n      \"max_dimensions\": {\n        \"width\": 2997,\n        \"height\": 1085\n      },\n      \"display_sizes\": [\n        {\n          \"name\": \"string\",\n          \"uri\": \"https://uyCksanKwLxpxdPBfgZit.iwYiBZf3nFd.0bcsbx-g9W.\"\n        },\n        {\n          \"name\": \"string\",\n          \"uri\": \"http://LSeiWAPQvE.jbUoX41UhWTqZ6Y0nabjOfRjTkrhK8OPTIHBl.iylmVNcaHRie2oO-\"\n        }\n      ],\n      \"keywords\": [\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"asset_family\": \"creative\",\n      \"collection_code\": \"string\",\n      \"collection_name\": \"string\",\n      \"license_model\": \"string\",\n      \"max_dimensions\": {\n        \"width\": 2747,\n        \"height\": 3107\n      },\n      \"display_sizes\": [\n        {\n          \"name\": \"string\",\n          \"uri\": \"http://yBbLiwgPOIOZlzMvhqlqHlnks.ycXWVY8jnNjskYqZSKxQqCIkDvsvmMgm,W8fyLGvVeWRA.Ha,79CRl-GAUB2n1VhvsnL\"\n        },\n        {\n          \"name\": \"string\",\n          \"uri\": \"https://aNYpdNIEViZMIdW.qaCZ.y\"\n        }\n      ],\n      \"keywords\": [\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"text\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "644b0aac-7c6c-4734-bb5a-a1b1885b3770",
+          "name": "Search creative videos",
+          "request": {
+            "name": "Search creative videos",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "videos",
+                "creative"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "phrase",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "30"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae8e8ac9-4867-4b77-bbc0-ee3646ba003b",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "videos",
+                    "creative"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phrase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result_count\": 2947,\n  \"videos\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"clip_length\": \"string\",\n      \"aspect_ratio\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"clip_length\": \"string\",\n      \"aspect_ratio\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e427608a-c3f4-47f7-bffe-e0dd7b7ca4e5",
+          "name": "Search editorial videos",
+          "request": {
+            "name": "Search editorial videos",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "videos",
+                "editorial"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "phrase",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "30"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ba2af7c-5327-4b92-a102-99a0a1ef4b92",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "videos",
+                    "editorial"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phrase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result_count\": 2947,\n  \"videos\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"clip_length\": \"string\",\n      \"aspect_ratio\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"caption\": \"string\",\n      \"clip_length\": \"string\",\n      \"aspect_ratio\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gettyimages.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a40eb226-d972-47d5-b123-603eccdf195f",
+    "name": "iStock API (Getty Images Platform) Countries Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "iStock content is served from Getty Images' shared API platform.\nPartner integrations authenticate with an API key plus OAuth 2.0 client\ncredentials and search/retrieve/download iStock-namespaced creative and\neditorial images and videos. Self-service API access for iStock-only\naccounts is not generally offered; access is granted through Getty's\ndeveloper program.\n\n\nContact Support:\n Name: Getty Images Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}
