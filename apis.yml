@@ -22,6 +22,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/istock.png
 tags:
   - Stock Media
+  - Image
+  - Video
+  - Illustrations
+  - Royalty-Free
+  - Getty
+tags_raw:
+  - Stock Media
   - Images
   - Video
   - Illustrations
@@ -65,6 +72,8 @@ apis:
   humanURL: https://www.istockphoto.com/affiliates
   baseURL: https://api.gettyimages.com/v3
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -79,6 +88,8 @@ apis:
   humanURL: https://www.istockphoto.com/affiliates
   baseURL: https://api.gettyimages.com/v3
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
