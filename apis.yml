@@ -6,6 +6,18 @@ description: >-
   iStock is Getty Images' royalty-free stock media brand for affordable, subscription-based image,
   video, illustration, and audio licensing. iStock shares Getty's underlying API platform; partner API
   access is gated and tied to a commercial licensing agreement.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
