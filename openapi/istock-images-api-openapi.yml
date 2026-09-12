@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: iStock API (Getty Platform) Countries Images API
   description: 'iStock content is served from Getty Images'' shared API platform.
@@ -74,13 +74,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   responses:
     NotFound:
       description: Asset not found
@@ -88,7 +81,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    AssetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        ErrorCode:
+          type: string
+        Message:
+          type: string
     Image:
       type: object
       properties:
@@ -139,13 +146,6 @@ components:
                 type: string
               type:
                 type: string
-    Error:
-      type: object
-      properties:
-        ErrorCode:
-          type: string
-        Message:
-          type: string
   securitySchemes:
     apiKey:
       type: apiKey
