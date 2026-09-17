@@ -95,22 +95,6 @@ apis:
     url: https://developer.gettyimages.com/docs/
   - type: Affiliates
     url: https://www.istockphoto.com/affiliates
-- aid: istock:istock-oauth-api
-  name: iStock OAuth API
-  description: OAuth 2.0 token acquisition
-  humanURL: https://www.istockphoto.com/affiliates
-  baseURL: https://api.gettyimages.com/v3
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/istock-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://developer.gettyimages.com/docs/
-  - type: Affiliates
-    url: https://www.istockphoto.com/affiliates
 - aid: istock:istock-search-api
   name: iStock Search API
   description: Search creative and editorial assets
@@ -135,6 +119,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/istock-videos-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-oauth-api
+  name: iStock O Auth API
+  description: OAuth 2.0 token acquisition
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-oauth-api-openapi.yml
   - type: Documentation
     url: https://developer.gettyimages.com/docs/
   - type: Affiliates
