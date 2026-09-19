@@ -115,6 +115,8 @@ apis:
   humanURL: https://www.istockphoto.com/affiliates
   baseURL: https://api.gettyimages.com/v3
   tags:
+  - Video
+  tags_raw:
   - Videos
   properties:
   - type: OpenAPI
@@ -129,6 +131,8 @@ apis:
   humanURL: https://www.istockphoto.com/affiliates
   baseURL: https://api.gettyimages.com/v3
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
