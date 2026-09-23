@@ -1,12 +1,7 @@
 {
   "provider": "istock",
   "sources": [
-    "istock-countries-api-openapi.yml",
-    "istock-downloads-api-openapi.yml",
-    "istock-images-api-openapi.yml",
-    "istock-oauth-api-openapi.yml",
-    "istock-search-api-openapi.yml",
-    "istock-videos-api-openapi.yml"
+    "_original/istock-openapi.yml"
   ],
   "outputs": [
     "istock-countries-api-openapi.yml",
@@ -16,17 +11,23 @@
     "istock-search-api-openapi.yml",
     "istock-videos-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "istock-countries-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "istock-downloads-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "istock-images-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "istock-oauth-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "istock-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "istock-videos-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "istock-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: istock-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 6 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "istock-countries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "istock-downloads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "istock-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "istock-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "istock-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "istock-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

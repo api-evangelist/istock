@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: iStock API (Getty Platform) Countries Images API
+  title: iStock API (Getty Platform) Images API
   description: 'iStock content is served from Getty Images'' shared API platform.
 
     Partner integrations authenticate with an API key plus OAuth 2.0 client
@@ -11,9 +11,7 @@ info:
 
     accounts is not generally offered; access is granted through Getty''s
 
-    developer program.
-
-    '
+    developer program.'
   version: '3.0'
   contact:
     name: Getty Images Developer Portal
@@ -74,20 +72,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Asset not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     Error:
       type: object
@@ -146,6 +130,20 @@ components:
                 type: string
               type:
                 type: string
+  parameters:
+    AssetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Asset not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

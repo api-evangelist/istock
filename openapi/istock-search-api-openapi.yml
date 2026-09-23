@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: iStock API (Getty Images Platform) Countries Search API
+  title: iStock API (Getty Images Platform) Search API
   description: 'iStock content is served from Getty Images'' shared API platform.
 
     Partner integrations authenticate with an API key plus OAuth 2.0 client
@@ -11,9 +11,7 @@ info:
 
     accounts is not generally offered; access is granted through Getty''s
 
-    developer program.
-
-    '
+    developer program.'
   version: '3.0'
   contact:
     name: Getty Images Developer Portal
@@ -105,7 +103,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/VideoSearchResult'
 components:
+  parameters:
+    Phrase:
+      name: phrase
+      in: query
+      required: true
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
   schemas:
+    ImageSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
     Video:
       type: object
       properties:
@@ -127,15 +156,15 @@ components:
           type: array
           items:
             type: object
-    ImageSearchResult:
+    VideoSearchResult:
       type: object
       properties:
         result_count:
           type: integer
-        images:
+        videos:
           type: array
           items:
-            $ref: '#/components/schemas/Image'
+            $ref: '#/components/schemas/Video'
     Image:
       type: object
       properties:
@@ -186,37 +215,6 @@ components:
                 type: string
               type:
                 type: string
-    VideoSearchResult:
-      type: object
-      properties:
-        result_count:
-          type: integer
-        videos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Video'
-  parameters:
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    Phrase:
-      name: phrase
-      in: query
-      required: true
-      schema:
-        type: string
-    PageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
   securitySchemes:
     apiKey:
       type: apiKey

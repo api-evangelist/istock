@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: iStock API (Getty Images Platform) Countries Downloads API
+  title: iStock API (Getty Images Platform) Downloads API
   description: 'iStock content is served from Getty Images'' shared API platform.
 
     Partner integrations authenticate with an API key plus OAuth 2.0 client
@@ -11,9 +11,7 @@ info:
 
     accounts is not generally offered; access is granted through Getty''s
 
-    developer program.
-
-    '
+    developer program.'
   version: '3.0'
   contact:
     name: Getty Images Developer Portal

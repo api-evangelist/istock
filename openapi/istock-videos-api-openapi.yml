@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: iStock API (Getty Images Platform) Countries Videos API
+  title: iStock API (Getty Images Platform) Videos API
   description: 'iStock content is served from Getty Images'' shared API platform.
 
     Partner integrations authenticate with an API key plus OAuth 2.0 client
@@ -11,9 +11,7 @@ info:
 
     accounts is not generally offered; access is granted through Getty''s
 
-    developer program.
-
-    '
+    developer program.'
   version: '3.0'
   contact:
     name: Getty Images Developer Portal
@@ -72,6 +70,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Video'
 components:
+  parameters:
+    AssetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     Video:
       type: object
@@ -94,13 +99,6 @@ components:
           type: array
           items:
             type: object
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey
