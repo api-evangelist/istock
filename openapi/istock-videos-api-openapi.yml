@@ -70,13 +70,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Video'
 components:
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     Video:
       type: object
@@ -99,6 +92,13 @@ components:
           type: array
           items:
             type: object
+  parameters:
+    AssetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

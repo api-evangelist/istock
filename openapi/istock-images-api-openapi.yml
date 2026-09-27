@@ -72,6 +72,20 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Asset not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AssetId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     Error:
       type: object
@@ -130,20 +144,6 @@ components:
                 type: string
               type:
                 type: string
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: Asset not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

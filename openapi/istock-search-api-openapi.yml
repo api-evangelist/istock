@@ -104,6 +104,14 @@ paths:
                 $ref: '#/components/schemas/VideoSearchResult'
 components:
   parameters:
+    PageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
     Phrase:
       name: phrase
       in: query
@@ -117,15 +125,16 @@ components:
         type: integer
         minimum: 1
         default: 1
-    PageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
   schemas:
+    VideoSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Video'
     ImageSearchResult:
       type: object
       properties:
@@ -156,15 +165,6 @@ components:
           type: array
           items:
             type: object
-    VideoSearchResult:
-      type: object
-      properties:
-        result_count:
-          type: integer
-        videos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Video'
     Image:
       type: object
       properties:

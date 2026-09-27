@@ -11,22 +11,19 @@
     "istock-search-api-openapi.yml",
     "istock-videos-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "istock-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "superseded outputs removed: istock-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 6 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "istock-countries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "istock-downloads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "istock-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "istock-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "istock-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "istock-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "istock-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
