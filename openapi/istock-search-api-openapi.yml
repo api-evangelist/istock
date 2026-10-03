@@ -126,15 +126,6 @@ components:
         minimum: 1
         default: 1
   schemas:
-    VideoSearchResult:
-      type: object
-      properties:
-        result_count:
-          type: integer
-        videos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Video'
     ImageSearchResult:
       type: object
       properties:
@@ -144,6 +135,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Image'
+    VideoSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Video'
     Video:
       type: object
       properties:
