@@ -142,6 +142,9 @@ apis:
   - type: Affiliates
     url: https://www.istockphoto.com/affiliates
 common:
+  - type: CapabilityMap
+    url: capabilities/istock-capability-edges.yml
+    name: iStock Business Capability Map
   - type: AgenticAccess
     url: agentic-access/istock-agentic-access.yml
   - type: VulnerabilityDisclosure
