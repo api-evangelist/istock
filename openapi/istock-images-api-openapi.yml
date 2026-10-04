@@ -80,13 +80,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        ErrorCode:
-          type: string
-        Message:
-          type: string
     Image:
       type: object
       properties:
@@ -137,6 +130,13 @@ components:
                 type: string
               type:
                 type: string
+    Error:
+      type: object
+      properties:
+        ErrorCode:
+          type: string
+        Message:
+          type: string
   parameters:
     AssetId:
       name: id

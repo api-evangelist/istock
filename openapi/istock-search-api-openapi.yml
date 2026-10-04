@@ -126,45 +126,6 @@ components:
         minimum: 1
         default: 1
   schemas:
-    ImageSearchResult:
-      type: object
-      properties:
-        result_count:
-          type: integer
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/Image'
-    VideoSearchResult:
-      type: object
-      properties:
-        result_count:
-          type: integer
-        videos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Video'
-    Video:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        caption:
-          type: string
-        clip_length:
-          type: string
-        aspect_ratio:
-          type: string
-        download_sizes:
-          type: array
-          items:
-            type: object
-        thumbnails:
-          type: array
-          items:
-            type: object
     Image:
       type: object
       properties:
@@ -215,6 +176,45 @@ components:
                 type: string
               type:
                 type: string
+    ImageSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    VideoSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Video'
+    Video:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        caption:
+          type: string
+        clip_length:
+          type: string
+        aspect_ratio:
+          type: string
+        download_sizes:
+          type: array
+          items:
+            type: object
+        thumbnails:
+          type: array
+          items:
+            type: object
   securitySchemes:
     apiKey:
       type: apiKey
