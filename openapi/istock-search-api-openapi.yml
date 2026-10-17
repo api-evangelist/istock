@@ -103,29 +103,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/VideoSearchResult'
 components:
-  parameters:
-    PageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    Phrase:
-      name: phrase
-      in: query
-      required: true
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   schemas:
+    ImageSearchResult:
+      type: object
+      properties:
+        result_count:
+          type: integer
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
     Image:
       type: object
       properties:
@@ -176,15 +163,6 @@ components:
                 type: string
               type:
                 type: string
-    ImageSearchResult:
-      type: object
-      properties:
-        result_count:
-          type: integer
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/Image'
     VideoSearchResult:
       type: object
       properties:
@@ -215,6 +193,28 @@ components:
           type: array
           items:
             type: object
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    Phrase:
+      name: phrase
+      in: query
+      required: true
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey
