@@ -1,0 +1,126 @@
+openapi: 3.2.0
+info:
+  title: Getty Images Orders API
+  version: '3'
+security:
+- Api-Key: []
+- OAuth2: []
+tags:
+- name: Orders
+paths:
+  /v3/orders/{id}:
+    get:
+      tags:
+      - Orders
+      summary: Get order metadata
+      description: 'This endpoint returns detailed order metadata for a specified order.
+
+        Use of this endpoint requires configuration changes to your API key.
+
+
+        You''ll need an API key and access token to use this resource.'
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: An order id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Orders.OrderDetail'
+        '404':
+          description: OrderNotFound
+        '401':
+          description: Unauthorized
+        '403':
+          description: NoAccessToOrderMetadata
+      operationId: getV3OrdersById
+      x-operation-id-source: derived
+components:
+  schemas:
+    GettyImages.Services.Connect.Public.Models.Orders.AssetIdFromOrder:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Orders.OrderDetail:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        invoice_number:
+          type:
+          - string
+          - 'null'
+        order_date:
+          type: string
+          format: date-time
+        end_client:
+          type:
+          - string
+          - 'null'
+        notes:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Orders.OrderNotes'
+        assets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Orders.AssetIdFromOrder'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Orders.OrderNotes:
+      type: object
+      properties:
+        licensee_name:
+          type:
+          - string
+          - 'null'
+        purchase_order_number:
+          type:
+          - string
+          - 'null'
+        project_title:
+          type:
+          - string
+          - 'null'
+        ordered_by:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+  securitySchemes:
+    Api-Key:
+      type: apiKey
+      name: Api-Key
+      in: header
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://authentication.gettyimages.com/oauth2/auth
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}

@@ -1,0 +1,98 @@
+openapi: 3.2.0
+info:
+  title: Getty Images Collections API
+  version: '3'
+security:
+- Api-Key: []
+- OAuth2: []
+tags:
+- name: Collections
+paths:
+  /v3/collections:
+    get:
+      tags:
+      - Collections
+      summary: Gets collections applicable for the customer
+      description: 'Use this endpoint to retrieve collections associated with your Getty Images account. To browse available collections see our Image collections page.
+
+
+        You''ll need an API key and access token to use this resource.'
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Collections.CollectionsList'
+        '401':
+          description: Unauthorized
+      operationId: getV3Collections
+      x-operation-id-source: derived
+components:
+  schemas:
+    GettyImages.Services.Connect.Public.Models.Collections.CollectionsList:
+      type: object
+      properties:
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Collections.Collection'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Collections.Collection:
+      type: object
+      properties:
+        asset_family:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+          format: int32
+        license_model:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+  securitySchemes:
+    Api-Key:
+      type: apiKey
+      name: Api-Key
+      in: header
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://authentication.gettyimages.com/oauth2/auth
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}

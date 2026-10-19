@@ -125,18 +125,198 @@ apis:
     url: https://developer.gettyimages.com/docs/
   - type: Affiliates
     url: https://www.istockphoto.com/affiliates
-- aid: istock:istock-oauth-api
-  name: iStock O Auth API
-  description: OAuth 2.0 token acquisition
+- aid: istock:istock-affiliatesearch-api
+  name: iStock Affiliate Search API
+  description: The AffiliateSearch API from iStock — 2 operation(s) for affiliatesearch.
   humanURL: https://www.istockphoto.com/affiliates
   baseURL: https://api.gettyimages.com/v3
   tags:
-  - Authentication
-  tags_raw:
-  - OAuth
+  - AffiliateSearch
   properties:
   - type: OpenAPI
-    url: openapi/istock-oauth-api-openapi.yml
+    url: openapi/istock-affiliatesearch-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-aigenerator-api
+  name: iStock AI Generator API
+  description: The AiGenerator API from iStock — 18 operation(s) for aigenerator.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - AiGenerator
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-aigenerator-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-artists-api
+  name: iStock Artists API
+  description: The Artists API from iStock — 2 operation(s) for artists.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Artists
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-artists-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-assetchanges-api
+  name: iStock Asset Changes API
+  description: The AssetChanges API from iStock — 3 operation(s) for assetchanges.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - AssetChanges
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-assetchanges-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-assetlicensing-api
+  name: iStock Asset Licensing API
+  description: The AssetLicensing API from iStock — 1 operation(s) for assetlicensing.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - AssetLicensing
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-assetlicensing-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-boards-api
+  name: iStock Boards API
+  description: The Boards API from iStock — 8 operation(s) for boards.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Boards
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-boards-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-collections-api
+  name: iStock Collections API
+  description: The Collections API from iStock — 1 operation(s) for collections.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-collections-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-customers-api
+  name: iStock Customers API
+  description: The Customers API from iStock — 1 operation(s) for customers.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-events-api
+  name: iStock Events API
+  description: The Events API from iStock — 2 operation(s) for events.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-imagematch-api
+  name: iStock Image Match API
+  description: The ImageMatch API from iStock — 1 operation(s) for imagematch.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - ImageMatch
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-imagematch-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-orders-api
+  name: iStock Orders API
+  description: The Orders API from iStock — 1 operation(s) for orders.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-products-api
+  name: iStock Products API
+  description: The Products API from iStock — 1 operation(s) for products.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-products-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-purchases-api
+  name: iStock Purchases API
+  description: The Purchases API from iStock — 1 operation(s) for purchases.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Purchases
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-purchases-api-openapi.yml
+  - type: Documentation
+    url: https://developer.gettyimages.com/docs/
+  - type: Affiliates
+    url: https://www.istockphoto.com/affiliates
+- aid: istock:istock-usage-api
+  name: iStock Usage API
+  description: The Usage API from iStock — 1 operation(s) for usage.
+  humanURL: https://www.istockphoto.com/affiliates
+  baseURL: https://api.gettyimages.com/v3
+  tags:
+  - Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/istock-usage-api-openapi.yml
   - type: Documentation
     url: https://developer.gettyimages.com/docs/
   - type: Affiliates

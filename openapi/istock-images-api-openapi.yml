@@ -1,157 +1,1941 @@
 openapi: 3.2.0
 info:
-  title: iStock API (Getty Platform) Images API
-  description: 'iStock content is served from Getty Images'' shared API platform.
-
-    Partner integrations authenticate with an API key plus OAuth 2.0 client
-
-    credentials and search/retrieve/download iStock-namespaced creative and
-
-    editorial images and videos. Self-service API access for iStock-only
-
-    accounts is not generally offered; access is granted through Getty''s
-
-    developer program.'
-  version: '3.0'
-  contact:
-    name: Getty Images Developer Portal
-    url: https://developer.gettyimages.com
-servers:
-- url: https://api.gettyimages.com/v3
-  description: Getty Images / iStock production API
+  title: Getty Images API
+  version: '3'
 security:
-- apiKey: []
-  bearerAuth: []
+- Api-Key: []
+- OAuth2: []
 tags:
 - name: Images
-  description: Image metadata retrieval
 paths:
-  /images:
+  /v3/images:
     get:
       tags:
       - Images
-      summary: Get metadata for multiple images
-      operationId: listImages
+      summary: Get metadata for multiple images by supplying multiple image ids
+      description: 'This endpoint returns the detailed image metadata for all specified images.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build
+
+        search response results. The following fields are provided for every image in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "artist",
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_id",
+
+        "collection_name",
+
+        "license_model",
+
+        "max_dimensions",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution
+
+        files that are most frequently used to build a UI displaying search results. The following fields are provided for every image
+
+        in your result set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ]
+
+        ]
+
+        }
+
+        ```'
       parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
       - name: ids
         in: query
-        required: true
+        description: 'Specifies one or more image ids to return. Use comma delimiter when requesting multiple ids.  Maximum
+
+          of 100 ids.'
+        style: form
+        explode: false
         schema:
           type: array
           items:
             type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes, height, and width returned by
+
+          ''download_sizes'' field are estimates.'
         style: form
         explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Images.ImageDetailFieldValues'
       responses:
         '200':
-          description: Image metadata
+          description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  images:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Image'
-  /images/{id}:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImagesDetail'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: ImageNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3Images
+      x-operation-id-source: derived
+  /v3/images/{id}:
     get:
       tags:
       - Images
-      summary: Get image metadata
-      operationId: getImage
+      summary: Get metadata for a single image by supplying one image id
+      description: 'This endpoint returns the detailed image metadata for a specified image.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that
+
+        are often used to build search response results. The following fields are provided for every image in your
+
+        result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "artist",
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_id",
+
+        "collection_name",
+
+        "license_model",
+
+        "max_dimensions",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low
+
+        resolution files that are most frequently used to build a UI displaying search results. The following fields are provided
+
+        for every image in your result set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ]
+
+        ]
+
+        }
+
+        ```'
       parameters:
-      - $ref: '#/components/parameters/AssetId'
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: An image id. For more than one image please use the /v3/images endpoint.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes, height, and width returned by
+
+          ''download_sizes'' field are estimates.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Images.ImageDetailFieldValues'
       responses:
         '200':
-          description: Image metadata
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Image'
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImagesDetail'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: ImageNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3ImagesById
+      x-operation-id-source: derived
+  /v3/images/{id}/downloadhistory:
+    get:
+      tags:
+      - Images
+      summary: Returns information about a customer's download history for a specific asset
+      description: ''
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: An image id.
+        required: true
+        schema:
+          type: string
+      - name: company_downloads
+        in: query
+        description: 'If specified, returns the list of previously downloaded images for all users in your company.
+
+          Your account must be enabled for this functionality. Contact your Getty Images account rep for more information.
+
+          Default is false.'
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownloadHistoryResponse'
+        '400':
+          description: Bad request
+        '403':
+          description: UnauthorizedDisplaySize
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: ImageNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3ImagesByIdDownloadhistory
+      x-operation-id-source: derived
+  /v3/images/{id}/same-series:
+    get:
+      tags:
+      - Images
+      summary: Retrieve creative images from the same series
+      description: 'This endpoint will provide the list of images, if any exist, from the same series as the specified creative asset id. These images are typically from the same photo shoot. This functionality will not work for editorial assets.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build
+
+        search response results. The following fields are provided for every image in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_id",
+
+        "collection_name",
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "name": "thumb"
+
+        }
+
+        ]
+
+        "license_model",
+
+        "max_dimensions",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution files
+
+        that are most frequently used to build a UI displaying search results. The following fields are provided for every image in your result
+
+        set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ]
+
+        ]
+
+        }
+
+        ```'
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: Identifies an existing image
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes, height, and width returned by
+
+          ''download_sizes'' field are estimates.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Model.ImagesFieldValues'
+      - name: page
+        in: query
+        description: Identifies page to return. Default is 1.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Specifies page size. Default is 30, maximum page_size is 100.
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.SearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.Image'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: ImageNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3ImagesByIdSameSeries
+      x-operation-id-source: derived
+  /v3/images/{id}/similar:
+    get:
+      tags:
+      - Images
+      summary: Retrieve similar images
+      description: 'This endpoint will provide a list of images that are similar to the specified asset id.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build
+
+        search response results. The following fields are provided for every image in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_id",
+
+        "collection_name",
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "name": "thumb"
+
+        }
+
+        ]
+
+        "license_model",
+
+        "max_dimensions",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution files
+
+        that are most frequently used to build a UI displaying search results. The following fields are provided for every image in your result
+
+        set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "images":
+
+        [
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ]
+
+        ]
+
+        }
+
+        ```'
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: Identifies an existing image
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes, height, and width returned by
+
+          ''download_sizes'' field are estimates.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Model.ImagesFieldValues'
+      - name: page
+        in: query
+        description: Identifies page to return. Default is 1.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Specifies page size. Default is 30, maximum page_size is 100.
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.SearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.EditorialImage'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: ImageNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3ImagesByIdSimilar
+      x-operation-id-source: derived
 components:
   schemas:
-    Error:
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.Artist:
       type: object
       properties:
-        ErrorCode:
-          type: string
-        Message:
-          type: string
-    Image:
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Domain.Services.Asset.RelatedSearch:
+      type: object
+      properties:
+        phrase:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Images.ImageDownloadAuthorization:
+      type: object
+      properties:
+        product_id:
+          type:
+          - string
+          - 'null'
+        product_type:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+        agreement_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.ReferralDestination:
+      type: object
+      properties:
+        site_name:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Images.ImageDetailDisplaySize:
+      type: object
+      properties:
+        height:
+          type:
+          - integer
+          - 'null'
+          description: Indicates the height in pixels
+          format: int32
+        is_watermarked:
+          type: boolean
+          description: Indicates whether the image is watermarked.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Identifies the name of the display size
+        uri:
+          type:
+          - string
+          - 'null'
+          description: Identifies the URI for the image
+        width:
+          type:
+          - integer
+          - 'null'
+          description: Indicates the width in pixels
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Images.EditorialSource:
       type: object
       properties:
         id:
-          type: string
-        title:
-          type: string
-        caption:
-          type: string
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.NewModels.Image:
+      type: object
+      properties:
+        istock_collection:
+          type:
+          - string
+          - 'null'
+        istock_exclusive:
+          type:
+          - boolean
+          - 'null'
+        allowed_use:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AllowedUse'
+        alternative_ids:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        artist:
+          type:
+          - string
+          - 'null'
         asset_family:
-          type: string
-          enum:
-          - creative
-          - editorial
+          type:
+          - string
+          - 'null'
+        asset_type:
+          type:
+          - string
+          - 'null'
+        call_for_image:
+          type:
+          - boolean
+          - 'null'
+        caption:
+          type:
+          - string
+          - 'null'
         collection_code:
-          type: string
+          type:
+          - string
+          - 'null'
+        collection_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
         collection_name:
-          type: string
-        license_model:
-          type: string
-        max_dimensions:
-          type: object
-          properties:
-            width:
-              type: integer
-            height:
-              type: integer
+          type:
+          - string
+          - 'null'
+        color_type:
+          type:
+          - string
+          - 'null'
+        contributor:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Contributor'
+        copyright:
+          type:
+          - string
+          - 'null'
+        date_camera_shot:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date-time
         display_sizes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            type: object
-            properties:
-              name:
-                type: string
-              uri:
-                type: string
-                format: uri
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.ImageSearchItemDisplaySize'
+        download_product:
+          type:
+          - string
+          - 'null'
         download_sizes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            type: object
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDownloadSize'
+        graphical_style:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
         keywords:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            type: object
-            properties:
-              text:
-                type: string
-              type:
-                type: string
-  responses:
-    NotFound:
-      description: Asset not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Keyword'
+        largest_downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Download'
+        license_model:
+          type:
+          - string
+          - 'null'
+        max_dimensions:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.MaxDimensions'
+        orientation:
+          type:
+          - string
+          - 'null'
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        quality_rank:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        referral_destinations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.ReferralDestination'
+        territory_restrictions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.TerritoryRestriction'
+        title:
+          type:
+          - string
+          - 'null'
+        uri_oembed:
+          type:
+          - string
+          - 'null'
+        date_submitted:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.TeeShirtSize:
+      enum:
+      - x_small
+      - small
+      - medium
+      - large
+      - x_large
+      - xx_large
+      - vector
+      type: string
+    ? GettyImages.Services.Connect.Public.Models.Search.NewModels.SearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.EditorialImage
+    : type: object
+      properties:
+        result_count:
+          type: integer
+          format: int32
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.EditorialImage'
+        facets:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.SearchFacetsResponse'
+        auto_corrections:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.AutoCorrections'
+        related_searches:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Domain.Services.Asset.RelatedSearch'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Contributor:
+      type: object
+      properties:
+        member_name:
+          type:
+          - string
+          - 'null'
+          description: The contributor's member name
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: The contributor's display name
+      additionalProperties: false
+      description: Contributor information for an image or video
+    GettyImages.Services.Connect.Public.Models.Downloads.User:
+      type: object
+      properties:
+        username:
+          type:
+          - string
+          - 'null'
+        first_name:
+          type:
+          - string
+          - 'null'
+        middle_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Images.Link:
+      type: object
+      properties:
+        rel:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Images.ImageDetail:
+      type: object
+      properties:
+        allowed_use:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AllowedUse'
+        alternative_ids:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        artist:
+          type:
+          - string
+          - 'null'
+        artist_title:
+          type:
+          - string
+          - 'null'
+        asset_family:
+          type:
+          - string
+          - 'null'
+        call_for_image:
+          type:
+          - boolean
+          - 'null'
+        caption:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        collection_code:
+          type:
+          - string
+          - 'null'
+        collection_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        collection_name:
+          type:
+          - string
+          - 'null'
+        color_type:
+          type:
+          - string
+          - 'null'
+        copyright:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
+        credit_line:
+          type:
+          - string
+          - 'null'
+        date_camera_shot:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_submitted:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        display_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDetailDisplaySize'
+        download_product:
+          type:
+          - string
+          - 'null'
+        download_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDownloadSize'
+        editorial_segments:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        editorial_source:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.EditorialSource'
+        event_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        graphical_style:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        is_ai_editable:
+          type:
+          - boolean
+          - 'null'
+        keywords:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Keyword'
+        largest_downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDownloadSize'
+        license_model:
+          type:
+          - string
+          - 'null'
+        links:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.Link'
+        max_dimensions:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.MaxDimensions'
+        orientation:
+          type:
+          - string
+          - 'null'
+        people:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        quality_rank:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        referral_destinations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.ReferralDestination'
+        state_province:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        uri_oembed:
+          type:
+          - string
+          - 'null'
+        istock_licenses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.IStockLicense'
+        istock_collection:
+          type:
+          - string
+          - 'null'
+        istock_exclusive:
+          type:
+          - boolean
+          - 'null'
+        contributor:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Contributor'
+        object_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Domain.Services.CreditPack.AssetLicenseName:
+      enum:
+      - Standard
+      - Multiseat
+      - Unlimited
+      - Resale
+      - Indemnification
+      type: string
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.SearchFacetsResponse:
+      type: object
+      properties:
+        specific_people:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.SpecificPeople'
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.FacetEvent'
+        locations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.Location'
+        artists:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.Artist'
+        entertainment:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.Entertainment'
+      additionalProperties: false
+    ? GettyImages.Services.Connect.Public.Models.Search.NewModels.SearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.Image
+    : type: object
+      properties:
+        result_count:
+          type: integer
+          format: int32
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.Image'
+        facets:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.SearchFacetsResponse'
+        auto_corrections:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.AutoCorrections'
+        related_searches:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Domain.Services.Asset.RelatedSearch'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Images.ImageDetailFieldValues:
+      enum:
+      - allowed_use
+      - alternative_ids
+      - artist
+      - artist_title
+      - asset_family
+      - call_for_image
+      - caption
+      - city
+      - collection_code
+      - collection_id
+      - collection_name
+      - color_type
+      - comp
+      - comp_webp
+      - copyright
+      - country
+      - credit_line
+      - date_camera_shot
+      - date_created
+      - date_submitted
+      - display_set
+      - download_sizes
+      - download_product
+      - downloads
+      - editorial_segments
+      - editorial_source
+      - event_ids
+      - graphical_style
+      - id
+      - is_ai_editable
+      - istock_collection
+      - istock_exclusive
+      - istock_licenses
+      - keywords
+      - largest_downloads
+      - license_model
+      - links
+      - max_dimensions
+      - object_name
+      - orientation
+      - people
+      - preview
+      - product_types
+      - quality_rank
+      - referral_destinations
+      - series_id
+      - state_province
+      - summary_set
+      - thumb
+      - title
+      - uri_oembed
+      type: string
+    GettyImages.Services.Connect.Public.Models.Images.ImageDownloadSize:
+      type: object
+      properties:
+        bytes:
+          type: integer
+          format: int64
+        downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDownloadAuthorization'
+        height:
+          type: integer
+          format: int32
+        media_type:
+          type:
+          - string
+          - 'null'
+        name:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.TeeShirtSize'
+        width:
+          type: integer
+          format: int32
+        dpi:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.MaxDimensions:
+      type: object
+      properties:
+        height:
+          type: integer
+          format: int32
+        width:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.AutoCorrections:
+      type: object
+      properties:
+        phrase:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.IStockLicense:
+      type: object
+      properties:
+        license_type:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Domain.Services.CreditPack.AssetLicenseName'
+        credits:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.SpecificPeople:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.EditorialSource:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Download:
+      type: object
+      properties:
+        product_id:
+          type:
+          - string
+          - 'null'
+        product_type:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+        agreement_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.ImageSearchItemDisplaySize:
+      type: object
+      properties:
+        is_watermarked:
+          type: boolean
+        name:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.TerritoryRestriction:
+      type: object
+      properties:
+        country_code:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownload:
+      type: object
+      properties:
+        agreement_name:
+          type:
+          - string
+          - 'null'
+        asset_type:
+          type:
+          - string
+          - 'null'
+        date_downloaded:
+          type: string
+          format: date-time
+        download_notes:
+          type:
+          - string
+          - 'null'
+        download_source:
+          type:
+          - string
+          - 'null'
+        product_id:
+          type: integer
+          format: int32
+        product_type:
+          type:
+          - string
+          - 'null'
+        project_code:
+          type:
+          - string
+          - 'null'
+        thumb_uri:
+          type:
+          - string
+          - 'null'
+        user:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Downloads.User'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.AllowedUse:
+      type: object
+      properties:
+        how_can_i_use_it:
+          type:
+          - string
+          - 'null'
+          description: Indicates how the asset can be used
+        release_info:
+          type:
+          - string
+          - 'null'
+          description: Indicates release status
+        usage_restrictions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Indicates asset usage restriction, if any
+        editorial_use_only:
+          type: boolean
+          description: Indicates whether the asset is for editorial use only
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.FacetEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        date:
+          type: string
+          format: date-time
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownloadHistoryResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownload'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Model.ImagesFieldValues:
+      enum:
+      - accessrestriction
+      - allowed_use
+      - alternative_ids
+      - artist
+      - asset_family
+      - call_for_image
+      - caption
+      - collection_code
+      - collection_id
+      - collection_name
+      - color_type
+      - comp
+      - comp_webp
+      - copyright
+      - date_camera_shot
+      - date_created
+      - date_submitted
+      - display_set
+      - download_product
+      - download_sizes
+      - editorial_segments
+      - editorial_source
+      - event_ids
+      - graphical_style
+      - id
+      - istock_collection
+      - keywords
+      - largest_downloads
+      - license_model
+      - max_dimensions
+      - orientation
+      - people
+      - preview
+      - product_types
+      - quality_rank
+      - referral_destinations
+      - summary_set
+      - thumb
+      - title
+      - uri_oembed
+      type: string
+    GettyImages.Services.Connect.Public.Models.Search.NewModels.EditorialImage:
+      type: object
+      properties:
+        istock_collection:
+          type:
+          - string
+          - 'null'
+        editorial_segments:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        editorial_source:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.EditorialSource'
+        event_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        era:
+          type:
+          - string
+          - 'null'
+        people:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        istock_exclusive:
+          type:
+          - boolean
+          - 'null'
+        allowed_use:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AllowedUse'
+        alternative_ids:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        artist:
+          type:
+          - string
+          - 'null'
+        asset_family:
+          type:
+          - string
+          - 'null'
+        asset_type:
+          type:
+          - string
+          - 'null'
+        call_for_image:
+          type:
+          - boolean
+          - 'null'
+        caption:
+          type:
+          - string
+          - 'null'
+        collection_code:
+          type:
+          - string
+          - 'null'
+        collection_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        collection_name:
+          type:
+          - string
+          - 'null'
+        color_type:
+          type:
+          - string
+          - 'null'
+        contributor:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Contributor'
+        copyright:
+          type:
+          - string
+          - 'null'
+        date_camera_shot:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        display_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.ImageSearchItemDisplaySize'
+        download_product:
+          type:
+          - string
+          - 'null'
+        download_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDownloadSize'
+        graphical_style:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        keywords:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Keyword'
+        largest_downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Download'
+        license_model:
+          type:
+          - string
+          - 'null'
+        max_dimensions:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.MaxDimensions'
+        orientation:
+          type:
+          - string
+          - 'null'
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        quality_rank:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        referral_destinations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.ReferralDestination'
+        territory_restrictions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.TerritoryRestriction'
+        title:
+          type:
+          - string
+          - 'null'
+        uri_oembed:
+          type:
+          - string
+          - 'null'
+        date_submitted:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.Entertainment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Keyword:
+      type: object
+      properties:
+        keyword_id:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        relevance:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Images.ImagesDetail:
+      type: object
+      properties:
+        images:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Images.ImageDetail'
+        images_not_found:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
   securitySchemes:
-    apiKey:
+    Api-Key:
       type: apiKey
+      name: Api-Key
       in: header
-      name: api-key
-      description: API key issued through the Getty Images developer program.
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 access token obtained via /oauth2/token.
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://authentication.gettyimages.com/oauth2/auth
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}

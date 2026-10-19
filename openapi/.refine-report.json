@@ -1,14 +1,27 @@
 {
   "provider": "istock",
   "sources": [
-    "_original/istock-openapi.yml"
+    "_original/istock-openapi.json"
   ],
   "outputs": [
+    "istock-affiliatesearch-api-openapi.yml",
+    "istock-aigenerator-api-openapi.yml",
+    "istock-artists-api-openapi.yml",
+    "istock-assetchanges-api-openapi.yml",
+    "istock-assetlicensing-api-openapi.yml",
+    "istock-boards-api-openapi.yml",
+    "istock-collections-api-openapi.yml",
     "istock-countries-api-openapi.yml",
+    "istock-customers-api-openapi.yml",
     "istock-downloads-api-openapi.yml",
+    "istock-events-api-openapi.yml",
+    "istock-imagematch-api-openapi.yml",
     "istock-images-api-openapi.yml",
-    "istock-oauth-api-openapi.yml",
+    "istock-orders-api-openapi.yml",
+    "istock-products-api-openapi.yml",
+    "istock-purchases-api-openapi.yml",
     "istock-search-api-openapi.yml",
+    "istock-usage-api-openapi.yml",
     "istock-videos-api-openapi.yml"
   ],
   "archived": [],
@@ -16,15 +29,27 @@
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "istock-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "istock-openapi.json: upgraded openapi 3.0.4 -> OpenAPI 3.2.0; renamed 5 component key(s) illegal in 3.x (e.g. GettyImages.Services.Connect.Public.Models.Search.NewModels.SearchResponse`1[GettyImages.Services.Connect.Public.Models.Search.NewModels.CreativeImage])",
+    "istock-openapi.json: declared missing tag: AffiliateSearch",
+    "istock-openapi.json: declared missing tag: AiGenerator",
+    "istock-openapi.json: declared missing tag: Artists",
+    "istock-openapi.json: declared missing tag: AssetChanges",
+    "istock-openapi.json: declared missing tag: AssetLicensing",
+    "istock-openapi.json: declared missing tag: Boards",
+    "istock-openapi.json: declared missing tag: Collections",
+    "istock-openapi.json: declared missing tag: Countries",
+    "istock-openapi.json: declared missing tag: Customers",
+    "istock-openapi.json: declared missing tag: Downloads",
+    "istock-openapi.json: declared missing tag: Events",
+    "istock-openapi.json: declared missing tag: ImageMatch",
+    "istock-openapi.json: declared missing tag: Images",
+    "istock-openapi.json: declared missing tag: Orders",
+    "istock-openapi.json: declared missing tag: Products",
+    "istock-openapi.json: declared missing tag: Purchases",
+    "istock-openapi.json: declared missing tag: Search",
+    "istock-openapi.json: declared missing tag: Usage",
+    "istock-openapi.json: declared missing tag: Videos",
+    "apis.yml register: written (+14 apis, 19 total)"
   ],
-  "skipped": [
-    "istock-countries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "istock-downloads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "istock-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "istock-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "istock-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "istock-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }

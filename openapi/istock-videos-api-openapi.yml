@@ -1,112 +1,2025 @@
 openapi: 3.2.0
 info:
-  title: iStock API (Getty Images Platform) Videos API
-  description: 'iStock content is served from Getty Images'' shared API platform.
-
-    Partner integrations authenticate with an API key plus OAuth 2.0 client
-
-    credentials and search/retrieve/download iStock-namespaced creative and
-
-    editorial images and videos. Self-service API access for iStock-only
-
-    accounts is not generally offered; access is granted through Getty''s
-
-    developer program.'
-  version: '3.0'
-  contact:
-    name: Getty Images Developer Portal
-    url: https://developer.gettyimages.com
-servers:
-- url: https://api.gettyimages.com/v3
-  description: Getty Images / iStock production API
+  title: Getty Images Videos API
+  version: '3'
 security:
-- apiKey: []
-  bearerAuth: []
+- Api-Key: []
+- OAuth2: []
 tags:
 - name: Videos
-  description: Video metadata retrieval
 paths:
-  /videos:
+  /v3/videos:
     get:
       tags:
       - Videos
-      summary: Get metadata for multiple videos
-      operationId: listVideos
+      summary: Get metadata for multiple videos by supplying multiple video ids
+      description: 'Use this endpoint to return detailed video metadata for all the specified video ids.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        You can show different information in the response by specifying values on the "fields" parameter (see details below).
+
+        You can search with only an API key, and that will give you search results that are equivalent to doing a search on the GettyImages.com site without being logged in (anonymous search). If you are a Getty Images API customer and would like to ensure that your API searches return only assets that you have a license to use, you need to also include an authorization token in the header of your request. Please consult our Authorization FAQ for more information on authorization tokens, and our Authorization Workflows for code examples of getting a token.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build search response results. The following fields are provided for every video in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_name",
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "name": "comp"
+
+        },
+
+        {
+
+        "name": "preview"
+
+        },
+
+        {
+
+        "name": "thumb"
+
+        }
+
+        ],
+
+        "license_model",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution files that are most frequently used to build a UI displaying search results. The following fields are provided for every video in your result set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        {
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ],
+
+        "key_frames": [
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        }
+
+        ]
+
+        }
+
+        ]
+
+        }
+
+        ```'
       parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
       - name: ids
         in: query
-        required: true
+        description: Specifies one or more video ids to return. Use comma delimiter when requesting multiple ids.  Maximum of 100 ids.
+        style: form
+        explode: false
         schema:
           type: array
           items:
             type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes returned by ''download_sizes'' field is an estimate.'
         style: form
         explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Videos.VideoDetailFieldValues'
       responses:
         '200':
-          description: Video metadata
+          description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  videos:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Video'
-  /videos/{id}:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideosDetailResponse'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: VideosNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3Videos
+      x-operation-id-source: derived
+  /v3/videos/{id}:
     get:
       tags:
       - Videos
-      summary: Get video metadata
-      operationId: getVideo
+      summary: Get metadata for a single video by supplying one video id
+      description: 'Use this endpoint to return detailed video metadata for the specified video id.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        You can show different information in the response by specifying values on the "fields" parameter (see details below).
+
+        You can search with only an API key, and that will give you search results that are equivalent to doing a search on the GettyImages.com site without being logged in (anonymous search). If you are a Getty Images API customer and would like to ensure that your API searches return only assets that you have a license to use, you need to also include an authorization token in the header of your request. Please consult our Authorization FAQ for more information on authorization tokens, and our Authorization Workflows for code examples of getting a token.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build search response results. The following fields are provided for every video in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_name",
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "name": "comp"
+
+        },
+
+        {
+
+        "name": "preview"
+
+        },
+
+        {
+
+        "name": "thumb"
+
+        }
+
+        ],
+
+        "license_model",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution files that are most frequently used to build a UI displaying search results. The following fields are provided for every video in your result set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "display_sizes": [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ],
+
+        "key_frames": [
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        },
+
+        {
+
+        "uri": ""
+
+        }
+
+        ]
+
+        }
+
+        ```'
       parameters:
-      - $ref: '#/components/parameters/AssetId'
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: A video id. For more than one video please use the /v3/video endpoint.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes returned by ''download_sizes'' field is an estimate.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Videos.VideoDetailFieldValues'
       responses:
         '200':
-          description: Video metadata
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Video'
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDetail'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: VideosNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3VideosById
+      x-operation-id-source: derived
+  /v3/videos/{id}/downloadhistory:
+    get:
+      tags:
+      - Videos
+      summary: Returns information about a customer's download history for a specific asset
+      description: ''
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: A video id.
+        required: true
+        schema:
+          type: string
+      - name: company_downloads
+        in: query
+        description: "If specified, returns the list of previously downloaded videos for all users in your company.\n            Your account must be enabled for this functionality. Contact your Getty Images account rep for more information. Default is false."
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownloadHistoryResponse'
+        '400':
+          description: Bad request
+        '403':
+          description: UnauthorizedDisplaySize
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: VideosNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3VideosByIdDownloadhistory
+      x-operation-id-source: derived
+  /v3/videos/{id}/same-series:
+    get:
+      tags:
+      - Videos
+      summary: Retrieve creative videos from the same series
+      description: 'This endpoint will provide the list of videos, if any exist, from the same series as the specified creative asset id. These images are typically from the same photo shoot. This functionality will not work for editorial assets.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build search response results. The following fields are provided for every video in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_name",
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "name": "comp"
+
+        },
+
+        {
+
+        "name": "preview"
+
+        },
+
+        {
+
+        "name": "thumb"
+
+        }
+
+        ],
+
+        "license_model",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution files that are most frequently used to build a UI displaying search results. The following fields are provided for every video in your result set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ]
+
+        ]
+
+        }
+
+        ```'
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: Identifies an existing video
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes returned by ''download_sizes'' field is an estimate.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Videos.AssociatedVideoDetailFieldValues'
+      - name: page
+        in: query
+        description: Identifies page to return. Default is 1.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Specifies page size. Default is 30, maximum page_size is 100.
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.VideoSearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.Video'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: VideosNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3VideosByIdSameSeries
+      x-operation-id-source: derived
+  /v3/videos/{id}/similar:
+    get:
+      tags:
+      - Videos
+      summary: Retrieve similar videos
+      description: 'This endpoint will provide a list of videos that are similar to the specified asset id.
+
+
+        You''ll need an API key and access token to use this resource.
+
+
+        ## Working with Fields Sets
+
+
+        Fields sets are used in the **fields** request parameter to receive a suite of metadata fields. The following fields sets are available:
+
+
+        #### Summary Fields Set
+
+
+        The **summary_set** query string parameter fields value represents a small batch of metadata fields that are often used to build search response results. The following fields are provided for every video in your result set when you include **summary_set** in your request.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        "asset_family",
+
+        "caption",
+
+        "collection_code",
+
+        "collection_name",
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "name": "comp"
+
+        },
+
+        {
+
+        "name": "preview"
+
+        },
+
+        {
+
+        "name": "thumb"
+
+        }
+
+        ],
+
+        "license_model",
+
+        "title"
+
+        ]
+
+        }
+
+        ```
+
+
+        #### Display Fields Set
+
+
+        The **display_set** query string parameter fields value represents the fields that provide you with URLs for the low resolution files that are most frequently used to build a UI displaying search results. The following fields are provided for every video in your result set when you include **display_set** in your request.
+
+
+        The URI provided is subject to change at any time and must be used as-is with no modification.
+
+
+        ```
+
+        {
+
+        "videos":
+
+        [
+
+        "display_sizes":
+
+        [
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "comp",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "preview",
+
+        "uri": ""
+
+        },
+
+        {
+
+        "is_watermarked": ,
+
+        "name": "thumb",
+
+        "uri": ""
+
+        }
+
+        ]
+
+        ]
+
+        }
+
+        ```'
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+        schema:
+          type: string
+          description: 'Provide a header to specify the language of result values. Supported values: cs (iStock only), de, en-GB, en-US, es, fi (iStock only), fr, hu (iStock only), id (iStock only), it, ja, ko (creative assets only), nl, pl (creative assets only), pt-BR, pt-PT, ro (iStock only), ru (creative assets only), sv, th (iStock only), tr, uk (iStock only), vi (iStock only), zh-HK (creative assets only).'
+      - name: id
+        in: path
+        description: A video id.
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: 'Specifies fields to return. Defaults to ''summary_set''. NOTE: Bytes returned by ''download_sizes'' field is an estimate.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Videos.AssociatedVideoDetailFieldValues'
+      - name: page
+        in: query
+        description: Identifies page to return. Default is 1.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Specifies page size. Default is 30, maximum page_size is 100.
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.VideoSearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.EditorialVideo'
+        '403':
+          description: UnauthorizedDisplaySize
+        '400':
+          description: InvalidParameterValue
+        '401':
+          description: AuthorizationTokenRequired
+        '404':
+          description: VideosNotFound
+        '500':
+          description: InvalidIStockCollection
+      operationId: getV3VideosByIdSimilar
+      x-operation-id-source: derived
 components:
   schemas:
-    Video:
+    GettyImages.Services.Connect.Public.Models.Search.VideoSearchItemDisplaySize:
+      type: object
+      properties:
+        is_watermarked:
+          type: boolean
+        name:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+        aspect_ratio:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.Artist:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Domain.Services.Asset.RelatedSearch:
+      type: object
+      properties:
+        phrase:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.ReferralDestination:
+      type: object
+      properties:
+        site_name:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Videos.VideoDownloadSize:
+      type: object
+      properties:
+        bit_depth:
+          type:
+          - string
+          - 'null'
+        broadcast_video_standard:
+          type:
+          - string
+          - 'null'
+        compression:
+          type:
+          - string
+          - 'null'
+        content_type:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDownloadAuthorization'
+        format:
+          type:
+          - string
+          - 'null'
+        frame_rate:
+          type:
+          - number
+          - 'null'
+          format: double
+        frame_size:
+          type:
+          - string
+          - 'null'
+        height:
+          type:
+          - number
+          - 'null'
+          format: double
+        interlaced:
+          type: boolean
+        bytes:
+          type: integer
+          format: int64
+        name:
+          type:
+          - string
+          - 'null'
+        width:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Videos.VideoDownloadAuthorization:
+      type: object
+      properties:
+        product_id:
+          type:
+          - string
+          - 'null'
+        product_type:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+        agreement_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.EditorialVideo:
+      type: object
+      properties:
+        editorial_segments:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        editorial_source:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.EditorialSource'
+        era:
+          type:
+          - string
+          - 'null'
+        event_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        people:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        source:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        allowed_use:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AllowedUse'
+        alternative_ids:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        artist:
+          type:
+          - string
+          - 'null'
+        aspect_ratio:
+          type:
+          - string
+          - 'null'
+        asset_family:
+          type:
+          - string
+          - 'null'
+        asset_type:
+          type:
+          - string
+          - 'null'
+        call_for_image:
+          type:
+          - boolean
+          - 'null'
+        caption:
+          type:
+          - string
+          - 'null'
+        clip_length:
+          type:
+          - string
+          - 'null'
+        collection_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        collection_code:
+          type:
+          - string
+          - 'null'
+        collection_name:
+          type:
+          - string
+          - 'null'
+        color_type:
+          type:
+          - string
+          - 'null'
+        copyright:
+          type:
+          - string
+          - 'null'
+        date_camera_shot:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_submitted:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        display_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.VideoSearchItemDisplaySize'
+        download_product:
+          type:
+          - string
+          - 'null'
+        download_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDownloadSize'
+        istock_collection:
+          type:
+          - string
+          - 'null'
+        istock_exclusive:
+          type:
+          - boolean
+          - 'null'
+        keywords:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Keyword'
+        largest_downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Download'
+        license_model:
+          type:
+          - string
+          - 'null'
+        mastered_to:
+          type:
+          - string
+          - 'null'
+        max_dimensions:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.MaxDimensions'
+        orientation:
+          type:
+          - string
+          - 'null'
+        originally_shot_on:
+          type:
+          - string
+          - 'null'
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        quality_rank:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        referral_destinations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.ReferralDestination'
+        shot_speed:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        istock_licenses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.IStockLicense'
+        object_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Videos.VideoDetailDisplaySize:
+      type: object
+      properties:
+        is_watermarked:
+          type: boolean
+          description: Indicates whether the image is watermarked.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Identifies the name of the display size
+        uri:
+          type:
+          - string
+          - 'null'
+          description: Identifies the URI for the image
+        aspect_ratio:
+          type:
+          - string
+          - 'null'
+          description: Identifies the URI for the image
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Videos.AssociatedVideoDetailFieldValues:
+      enum:
+      - allowed_use
+      - artist
+      - aspect_ratio
+      - asset_family
+      - call_for_image
+      - caption
+      - clip_length
+      - collection_code
+      - collection_id
+      - collection_name
+      - color_type
+      - comp
+      - copyright
+      - date_created
+      - date_submitted
+      - display_set
+      - download_product
+      - download_sizes
+      - editorial_segments
+      - era
+      - event_ids
+      - id
+      - istock_collection
+      - keywords
+      - largest_downloads
+      - license_model
+      - mastered_to
+      - orientation
+      - originally_shot_on
+      - preview
+      - product_types
+      - quality_rank
+      - referral_destinations
+      - shot_speed
+      - source
+      - summary_set
+      - thumb
+      - title
+      - istock_licenses
+      type: string
+    GettyImages.Services.Connect.Public.Models.Downloads.User:
+      type: object
+      properties:
+        username:
+          type:
+          - string
+          - 'null'
+        first_name:
+          type:
+          - string
+          - 'null'
+        middle_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Domain.Services.CreditPack.AssetLicenseName:
+      enum:
+      - Standard
+      - Multiseat
+      - Unlimited
+      - Resale
+      - Indemnification
+      type: string
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.SearchFacetsResponse:
+      type: object
+      properties:
+        specific_people:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.SpecificPeople'
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.FacetEvent'
+        locations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.Location'
+        artists:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.Artist'
+        entertainment:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.Entertainment'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.Video:
       type: object
       properties:
         id:
-          type: string
-        title:
-          type: string
-        caption:
-          type: string
-        clip_length:
-          type: string
+          type:
+          - string
+          - 'null'
+        allowed_use:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AllowedUse'
+        alternative_ids:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        artist:
+          type:
+          - string
+          - 'null'
         aspect_ratio:
-          type: string
+          type:
+          - string
+          - 'null'
+        asset_family:
+          type:
+          - string
+          - 'null'
+        asset_type:
+          type:
+          - string
+          - 'null'
+        call_for_image:
+          type:
+          - boolean
+          - 'null'
+        caption:
+          type:
+          - string
+          - 'null'
+        clip_length:
+          type:
+          - string
+          - 'null'
+        collection_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        collection_code:
+          type:
+          - string
+          - 'null'
+        collection_name:
+          type:
+          - string
+          - 'null'
+        color_type:
+          type:
+          - string
+          - 'null'
+        copyright:
+          type:
+          - string
+          - 'null'
+        date_camera_shot:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_submitted:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        display_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.VideoSearchItemDisplaySize'
+        download_product:
+          type:
+          - string
+          - 'null'
         download_sizes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            type: object
-        thumbnails:
-          type: array
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDownloadSize'
+        istock_collection:
+          type:
+          - string
+          - 'null'
+        istock_exclusive:
+          type:
+          - boolean
+          - 'null'
+        keywords:
+          type:
+          - array
+          - 'null'
           items:
-            type: object
-  parameters:
-    AssetId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Keyword'
+        largest_downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Download'
+        license_model:
+          type:
+          - string
+          - 'null'
+        mastered_to:
+          type:
+          - string
+          - 'null'
+        max_dimensions:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.MaxDimensions'
+        orientation:
+          type:
+          - string
+          - 'null'
+        originally_shot_on:
+          type:
+          - string
+          - 'null'
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        quality_rank:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        referral_destinations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.ReferralDestination'
+        shot_speed:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        istock_licenses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.IStockLicense'
+        object_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Videos.VideosDetailResponse:
+      type: object
+      properties:
+        videos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDetail'
+        videos_not_found:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.MaxDimensions:
+      type: object
+      properties:
+        height:
+          type: integer
+          format: int32
+        width:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.AutoCorrections:
+      type: object
+      properties:
+        phrase:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.SpecificPeople:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.IStockLicense:
+      type: object
+      properties:
+        license_type:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Domain.Services.CreditPack.AssetLicenseName'
+        credits:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.KeyFrames.KeyFrame:
+      type: object
+      properties:
+        uri:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Search.EditorialSource:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Download:
+      type: object
+      properties:
+        product_id:
+          type:
+          - string
+          - 'null'
+        product_type:
+          type:
+          - string
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+        agreement_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ? GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.VideoSearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.Video
+    : type: object
+      properties:
+        videos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.Video'
+        facets:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.SearchFacetsResponse'
+        related_searches:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Domain.Services.Asset.RelatedSearch'
+        result_count:
+          type: integer
+          format: int32
+        auto_corrections:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.AutoCorrections'
+      additionalProperties: false
+    ? GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.VideoSearchResponse_1_GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.EditorialVideo
+    : type: object
+      properties:
+        videos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.NewModels.Video.EditorialVideo'
+        facets:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Controllers.Search.Facets.SearchFacetsResponse'
+        related_searches:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Domain.Services.Asset.RelatedSearch'
+        result_count:
+          type: integer
+          format: int32
+        auto_corrections:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Search.AutoCorrections'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Videos.VideoDetailFieldValues:
+      enum:
+      - id
+      - allowed_use
+      - artist
+      - asset_family
+      - call_for_image
+      - caption
+      - city
+      - clip_length
+      - collection_code
+      - collection_id
+      - collection_name
+      - color_type
+      - comp
+      - copyright
+      - country
+      - date_created
+      - date_submitted
+      - display_set
+      - download_sizes
+      - download_product
+      - downloads
+      - editorial_segments
+      - era
+      - event_ids
+      - is_ai_editable
+      - istock_collection
+      - istock_exclusive
+      - istock_licenses
+      - key_frames
+      - keywords
+      - license_model
+      - mastered_to
+      - max_dimensions
+      - object_name
+      - orientation
+      - originally_shot_on
+      - people
+      - preview
+      - product_types
+      - quality_rank
+      - referral_destinations
+      - series_id
+      - shot_speed
+      - source
+      - state_province
+      - summary_set
+      - thumb
+      - title
+      type: string
+    GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownload:
+      type: object
+      properties:
+        agreement_name:
+          type:
+          - string
+          - 'null'
+        asset_type:
+          type:
+          - string
+          - 'null'
+        date_downloaded:
+          type: string
+          format: date-time
+        download_notes:
+          type:
+          - string
+          - 'null'
+        download_source:
+          type:
+          - string
+          - 'null'
+        product_id:
+          type: integer
+          format: int32
+        product_type:
+          type:
+          - string
+          - 'null'
+        project_code:
+          type:
+          - string
+          - 'null'
+        thumb_uri:
+          type:
+          - string
+          - 'null'
+        user:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Downloads.User'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.AllowedUse:
+      type: object
+      properties:
+        how_can_i_use_it:
+          type:
+          - string
+          - 'null'
+          description: Indicates how the asset can be used
+        release_info:
+          type:
+          - string
+          - 'null'
+          description: Indicates release status
+        usage_restrictions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Indicates asset usage restriction, if any
+        editorial_use_only:
+          type: boolean
+          description: Indicates whether the asset is for editorial use only
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Videos.VideoDetail:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        allowed_use:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AllowedUse'
+        artist:
+          type:
+          - string
+          - 'null'
+        asset_family:
+          type:
+          - string
+          - 'null'
+        caption:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        clip_length:
+          type:
+          - string
+          - 'null'
+        collection_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        collection_code:
+          type:
+          - string
+          - 'null'
+        collection_name:
+          type:
+          - string
+          - 'null'
+        color_type:
+          type:
+          - string
+          - 'null'
+        copyright:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_submitted:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        download_product:
+          type:
+          - string
+          - 'null'
+        display_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDetailDisplaySize'
+        download_sizes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Videos.VideoDownloadSize'
+        editorial_segments:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        era:
+          type:
+          - string
+          - 'null'
+        event_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        is_ai_editable:
+          type:
+          - boolean
+          - 'null'
+        key_frames:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.KeyFrames.KeyFrame'
+        keywords:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.Keyword'
+        license_model:
+          type:
+          - string
+          - 'null'
+        mastered_to:
+          type:
+          - string
+          - 'null'
+        originally_shot_on:
+          type:
+          - string
+          - 'null'
+        product_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        quality_rank:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        referral_destinations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.ReferralDestination'
+        shot_speed:
+          type:
+          - string
+          - 'null'
+        source:
+          type:
+          - string
+          - 'null'
+        state_province:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        istock_licenses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.IStockLicense'
+        alternative_ids:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        call_for_image:
+          type:
+          - boolean
+          - 'null'
+        istock_sub_collection:
+          type:
+          - string
+          - 'null'
+        istock_collection:
+          type:
+          - string
+          - 'null'
+        istock_exclusive:
+          type:
+          - boolean
+          - 'null'
+        max_dimensions:
+          $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.MaxDimensions'
+        object_name:
+          type:
+          - string
+          - 'null'
+        orientation:
+          type:
+          - string
+          - 'null'
+        people:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.FacetEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        date:
+          type: string
+          format: date-time
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownloadHistoryResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        downloads:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GettyImages.Services.Connect.Public.Models.AssetDownloadHistory.AssetDownload'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.Entertainment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Controllers.Search.Facets.Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GettyImages.Services.Connect.Public.Models.Keyword:
+      type: object
+      properties:
+        keyword_id:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        relevance:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
   securitySchemes:
-    apiKey:
+    Api-Key:
       type: apiKey
+      name: Api-Key
       in: header
-      name: api-key
-      description: API key issued through the Getty Images developer program.
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 access token obtained via /oauth2/token.
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://authentication.gettyimages.com/oauth2/auth
+          tokenUrl: https://authentication.gettyimages.com/oauth2/token
+          refreshUrl: https://authentication.gettyimages.com/oauth2/token
+          scopes: {}
