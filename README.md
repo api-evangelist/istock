@@ -1,4 +1,4 @@
-# iStock (istock)
+# iStock
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,55 +66,125 @@
 
 iStock is Getty Images' royalty-free stock media brand for affordable, subscription-based image, video, illustration, and audio licensing. iStock shares Getty's underlying API platform; partner API access is gated and tied to a commercial licensing agreement.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/istock/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/istock/refs/heads/main/apis.yml)
+**Areas:** Stock Media · Image · Video · Illustrations · Royalty-Free · Getty
 
-## Tags
+## iStock on APIs.io
 
-- Stock Media
-- Images
-- Video
-- Illustrations
-- Royalty-Free
-- Getty
+Everything profiled for iStock is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/istock/](https://apis.io/providers/istock/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-08
+- [iStock Countries API](https://apis.io/apis/istock/istock-countries-api/) — Reference data
+- [iStock Downloads API](https://apis.io/apis/istock/istock-downloads-api/) — License and download assets
+- [iStock Images API](https://apis.io/apis/istock/istock-images-api/) — Image metadata retrieval
+- [iStock Search API](https://apis.io/apis/istock/istock-search-api/) — Search creative and editorial assets
+- [iStock Videos API](https://apis.io/apis/istock/istock-videos-api/) — Video metadata retrieval
+- [iStock O Auth API](https://apis.io/apis/istock/istock-oauth-api/) — OAuth 2.0 token acquisition
 
-## APIs
+### Published properties
 
-### iStock API (Getty Platform)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Partner API access for iStock content runs on Getty's API platform. Search, asset detail, and download endpoints are namespaced to iStock content. Authentication uses an api-key header plus OAuth 2.0 client credentials. Direct iStock-only API self-service is not offered; access is granted to enterprise partners through Getty's developer program.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.istockphoto.com/affiliates](https://www.istockphoto.com/affiliates)
-- **Base URL:** `https://api.gettyimages.com/v3`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Istock Agentic Access](https://apis.io/agentic-access/istock/istock-agentic-access/)
 
-- Images
-- Video
-- Search
+#### Collections (7)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://developer.gettyimages.com/docs/)
-- [OpenAPI](https://api.gettyimages.com/swagger) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Affiliates](https://www.istockphoto.com/affiliates)
-- [Postman Collection](collections/istock.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/istock.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [iStock API (Getty Images Platform)](https://apis.io/collections/istock/open-istock/)
+- [iStock API (Getty Images Platform) Countries API](https://apis.io/collections/istock/open-istock-countries-api/)
+- [iStock API (Getty Images Platform) Countries Downloads API](https://apis.io/collections/istock/open-istock-downloads-api/)
+- [iStock API (Getty Platform) Countries Images API](https://apis.io/collections/istock/open-istock-images-api/)
+- [iStock API (Getty Images Platform) Countries OAuth API](https://apis.io/collections/istock/open-istock-oauth-api/)
+- [iStock API (Getty Images Platform) Countries Search API](https://apis.io/collections/istock/open-istock-search-api/)
+- [iStock API (Getty Images Platform) Countries Videos API](https://apis.io/collections/istock/open-istock-videos-api/)
 
-## Common Properties
+#### Security (3)
 
-- [LinkedIn](https://www.linkedin.com/company/istockphoto)
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Istock Authentication](https://apis.io/security/istock/istock-authentication/)
+- [Istock Domain Security](https://apis.io/security/istock/istock-domain-security/)
+- [Istock Vulnerability Disclosure](https://apis.io/security/istock/istock-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Istock Plans Pricing](https://apis.io/plans/istock/istock-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Istock Rate Limits](https://apis.io/rate-limits/istock/istock-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Istock Finops](https://apis.io/finops/istock/istock-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.istockphoto.com/)
-- [Developer Portal](https://developer.gettyimages.com/)
-- [Plans](plans/istock-plans-pricing.yml)
-- [Rate Limits](rate-limits/istock-rate-limits.yml)
-- [Fin Ops](finops/istock-finops.yml)
+- [Blog](https://www.istockphoto.com/blog)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 46.3 |
+| Contract governance | 0.0 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 17.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/istock/](https://apis.io/providers/istock/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for iStock: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/istock/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
